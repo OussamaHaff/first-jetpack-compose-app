@@ -4,14 +4,14 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.Composable
 import androidx.compose.unaryPlus
-import androidx.ui.core.Sp
-import androidx.ui.core.Text
-import androidx.ui.core.setContent
+import androidx.ui.core.*
 import androidx.ui.foundation.DrawImage
+import androidx.ui.foundation.shape.corner.RoundedCornerShape
 import androidx.ui.graphics.Color
-import androidx.ui.graphics.Image
 import androidx.ui.layout.Column
+import androidx.ui.layout.Container
 import androidx.ui.layout.CrossAxisAlignment
+import androidx.ui.layout.Spacing
 import androidx.ui.material.MaterialTheme
 import androidx.ui.res.imageResource
 import androidx.ui.text.TextStyle
@@ -41,8 +41,24 @@ fun MultipleGreetingsPreview() {
 fun MultipleGreetings() {
     val image = +imageResource(R.drawable.bmp_nicolas_cage_meme)
     MaterialTheme {
-        Column(crossAxisAlignment = CrossAxisAlignment.Center) {
-            DrawImage(image = image)
+        Column(
+                crossAxisAlignment = CrossAxisAlignment.Center,
+                modifier = Spacing(all = Dp(16f))
+        ) {
+            Container(
+                    expanded = true,
+                    height = Dp(320f)
+            ) {
+                Clip(
+                        shape = RoundedCornerShape(
+                                topLeft = Dp(24f),
+                                bottomRight = Dp(24f)
+                        )
+                ) {
+                    DrawImage(image = image)
+
+                }
+            }
             Greeting(name = "Android Candy")
             GentleGreeting()
         }
@@ -54,12 +70,13 @@ fun Greeting(name: String) {
     Text(
             text = "Yo, $name!",
             style = TextStyle(
-                    color = Color.Yellow,
+                    color = Color.Black,
                     fontSize = Sp(28f),
                     fontFamily = FontFamily.Cursive
             )
     )
 }
+
 @Preview
 @Composable
 fun GentleGreeting() {
